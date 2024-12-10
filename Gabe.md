@@ -30,37 +30,19 @@ Programs accept input to achieve their intended functionality. **Describe at lea
 - If there are multiple parts to this question, write the part letter with your response.
 
 ```javascript
-function displayToDoList(array) {
-  array.forEach((inputs) => {
-    DOMSelectors.toDoList.insertAdjacentHTML(
-      "beforeend",
-      `<div class="card"><div class = "to-do-card">${inputs}</div>
-    <button type ="submit" class="remove-button" id="remove-reminder"> Remove </button>
-    </div>`
-    );
-  });
-  const removeButton = document.querySelectorAll(".remove-button");
-  removeButton.forEach((button) => {
-    button.addEventListener("click", removeToDo);
-  });
-
-  function removeToDo() {
-    const specificCard = this.parentElement;
-    const specificCardText =
-      specificCard.querySelector(".to-do-card").textContent;
-
-    for (let i = 0; i < ToDoItems.length; i++) {
-      if (ToDoItems[i] === specificCardText) {
-        ToDoItems.splice(i, 1);
-        break;
-      }
-    }
-    specificCard.remove();
-  }
-}
+function checkAnswer(answer) {
+         let q = qa[i]
+         if (q.correct.includes(answer)) {
+            used.push("Correct")
+         }
+         else {
+            used.push("Incorrect")
+         }
+         i++
+         if (i === Number(DOMSelectors.input.value)){final(used)}
 ```
 
-## The iput in this function is the array. The function takes this array(which is the item on the to do list)and creates a card with buttons and queryselectors.
+## The iput in this function is the answer. The function checks if the answer is correct or not and then returns the response
 
 ### Question 2
 
@@ -71,17 +53,28 @@ Refer to your Personalized Project Reference when answering this question.
 Consider the first iteration statement included in the Procedure section of your Personalized Project Reference. **Describe what is being accomplished by the code in the body of the iteration statement.**
 
 ```javascript
-array.forEach((inputs) => {
-  DOMSelectors.toDoList.insertAdjacentHTML(
+function final(array) {
+  let a = 0;
+  let b = 0;
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].includes("Correct")) {
+      a++;
+    }
+    if (array[i].includes("Incorrect")) {
+      b++;
+    }
+  }
+  clear();
+  const correct = (a * 100) / DOMSelectors.input.value;
+  const incorrect = (b * 100) / DOMSelectors.input.value;
+  DOMSelectors.question.insertAdjacentHTML(
     "beforeend",
-    `<div class="card"><div class = "to-do-card">${inputs}</div>
-    <button type ="submit" class="remove-button" id="remove-reminder"> Remove </button>
-    </div>`
+    `<h1>You got ${correct}% of them right and ${incorrect}% of them wrong!</h1>`
   );
-});
+}
 ```
 
-The iteration statment here is the .foreach and the point of the iteration here is to create cards for each other items in the to do list
+The iteration statment here is the for loop, which loops through the array and checks how many answers are correcrt and returns the precentage
 
 #### Part (b):
 
@@ -91,21 +84,19 @@ Consider the procedure identified in part (i) of the Procedure section of your P
 - Describe the expected behavior of each call. If it is not possible for two calls to your procedure to cause different code segments to execute, explain why this is the case for your procedure.
 
 ```javascript
-removeButton.forEach((button) => {
-  button.addEventListener("click", removeToDo);
-});
-
-function addToDo(event) {
-  DOMSelectors.toDoList.innerHTML = "";
-  const inputtedToDo = DOMSelectors.userInput.value;
-  event.preventDefault();
-  ToDoItems.push(inputtedToDo);
-  displayToDoList(ToDoItems);
-  DOMSelectors.userInput.value = "";
-}
+function checkAnswer(answer) {
+         let q = qa[i]
+         if (q.correct.includes(answer)) {
+            used.push("Correct")
+         }
+         else {
+            used.push("Incorrect")
+         }
+         i++
+         if (i === Number(DOMSelectors.input.value)){final(used)}
 ```
 
-the remove button here takes the event listener to the button to click and remove the item from the to do list. The addToDo function takes an input of an event and then creates a card out of it and pushes it to the screen.
+In the first function it checks if the answer is correct or not and then excutetues diffrent lines of code based on if the answer is right or wrong.
 
 #### Part (c):
 
